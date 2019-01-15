@@ -24,6 +24,7 @@
         <druid.verison>1.1.10</druid.verison>
         <pagehelper.version>5.1.4</pagehelper.version>
         <jackson.verison>2.9.5</jackson.verison>
+        <lombok.version>1.18.0</lombok.version>
     </properties>
     <!--配置依赖-->
     <dependencies>
@@ -114,6 +115,13 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <!--配置工具-->

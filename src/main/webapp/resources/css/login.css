@@ -1,0 +1,41 @@
+#container {
+    margin-top: 40px;
+    margin-left: 430px;
+    height: 350px;
+    width: 450px;
+    background: aliceblue;
+    border-radius:5px;
+
+}
+#tips{
+    color: red;
+    margin-left: 250px;
+    margin-top: -10px;
+    font-size: 10px;
+    position: fixed;
+}
+.message {
+    text-align: center;
+    /*background: #27A9E3;*/
+    margin-top: 110px;
+    position: relative;
+    color: aliceblue;
+    font-size: 26px;
+}
+body{
+    background:url("images/back2.jpg");
+}
+#username{
+    padding-top:90px;
+    width: 400px;
+}
+#userpassword{
+    margin-top: 40px;
+    width: 400px;
+}
+
+#loginbutton,#rebutton{
+    margin-top: 30px;
+    width: 150px;
+    position: relative;
+}

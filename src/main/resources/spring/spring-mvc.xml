@@ -8,6 +8,25 @@
       <context:component-scan base-package="com.duan.system.controller"/>
 
     <mvc:annotation-driven/>
-    <mvc:resources mapping="/resources/**" location="/resources"/>
-
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--配置拦截地址-->
+            <mvc:mapping path="/**"/>
+            <!--配置不需要拦截的页面-->
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/index"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <!--拦截器具体的类-->
+            <bean class="com.duan.system.intercept.LoginIntercept"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--配置前缀-->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!--配置后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
 </beans>
