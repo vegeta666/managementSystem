@@ -8,13 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>儒雅随和养老院管理系统</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
-    <link rel="stylesheet" href="resources/css/login.css">
+    <link href="/resources/css/element-ui/reset.css" rel="stylesheet"/>
+    <link href="/resources/css/element-ui/index.css" rel="stylesheet"/>
+    <script src="/resources/js/lib/vue/vue.js"></script>
+    <script src="/resources/js/lib/axios/axios.min.js"></script>
+
+    <script src="/resources/js/lib/element-ui/index.js"></script>
+    <script type="module" src="/resources/js/login.js"></script>
+    <link rel="stylesheet" href="/resources/css/login.css">
 </head>
 <body>
 <div id = "login">
@@ -42,49 +47,7 @@
     </div>
 
 </div>
-<script>
-    new Vue({
-        el: '#login',
-        data: {
-            loginForm:{
-                username:'',
-                password:'',
-                tips:''
 
-            }
-        },
-        methods: {
-            resetForm:function(formName){
-                this.$refs[formName].resetFields();
-                this.loginForm.tips = '';
-            },
-            login:function(){
-                var self = this;
-                var param = new URLSearchParams()
-                param.append('username', self.loginForm.username)
-                param.append('password', self.loginForm.password)
-                axios.post('/login',param
-                ).then(function(res){
-                    if(res.data == 'user'){
-                        self.loginForm.tips = '用户不存在，请重新输入!';
-                    }else if(res.data == 'password'){
-                        self.loginForm.tips = '密码输入错误，请重新输入!';
-                    }else if(res.data == 'ok'){
-
-                        window.location.href = "/welcome";
-
-                    }
-
-
-
-                }).catch(function(err){
-                    console.error(err);
-                });
-            }
-        }
-
-    })
-</script>
 </body>
 </html>
 

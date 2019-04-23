@@ -2,12 +2,13 @@ package com.duan.system.pojo;
 
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Data
 @ToString
 public class User {
-    private Long id;
+    private int id;
 
     private String username;
 
@@ -15,8 +16,8 @@ public class User {
 
     private String userpassword;
 
-    private Long createby;
-
+    private String createby;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createtime;
 
 }

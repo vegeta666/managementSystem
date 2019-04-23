@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.system.dao.VisitorMapper">
+    <resultMap id="BaseResultMap" type="com.duan.system.pojo.Visitor">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="oldername" property="oldername"/>
+        <result column="phone" property="phone"/>
+        <result column="operator" property="operator"/>
+        <result column="relationship" property="relationship"/>
+        <result column="idcard" property="idcard"/>
+        <result column="vtime" property="vtime"/>
+    </resultMap>
+    <insert id="insert" parameterType="visitor">
+        insert into visitor(name,phone,idcard,oldername,relationship,vtime,operator)
+        values (#{name},#{phone},#{idcard},#{oldername},#{relationship},#{vtime},#{operator})
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from visitor
+    </select>
+    <select id="selectByOldNameAndOperator" resultType="visitor">
+      select * from visitor
+      <where>
+          <if test="oldername != null and oldername != ''">
+              oldername like concat('%',#{oldername},'%')
+          </if>
+          <if test="operator != null and operator != ''">
+              and operator = #{operator}
+          </if>
+      </where>
+    </select>
+</mapper>

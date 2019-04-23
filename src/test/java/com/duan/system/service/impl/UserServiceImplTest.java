@@ -1,19 +1,12 @@
 package com.duan.system.service.impl;
 
-import com.duan.system.pojo.User;
 import com.duan.system.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import java.io.IOException;
-import java.util.List;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,6 +15,10 @@ public class UserServiceImplTest {
     @Autowired
    private  UserService userService;
     @Test
+    public void upate() {
+        //userService.modifyinformation("password","dddss","1001");
+    }
+/*    @Test
     public void findAll() {
         List<User> userList = userService.findAll();
         ObjectMapper mapper = new ObjectMapper();
@@ -41,5 +38,5 @@ public class UserServiceImplTest {
             }
 
         }
-    }
+    }*/
 }

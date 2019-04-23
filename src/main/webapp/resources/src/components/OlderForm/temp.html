@@ -1,0 +1,130 @@
+<div id = "OlderForm">
+    <el-form  :inline = "true" ref = "basicForm" :model = "basicForm" label-width = "80px" size = "medium">
+        <el-form-item label = "姓名" prop = "name" required>
+            <el-input v-model = "basicForm.name"  placeholder="姓名">
+            </el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="gender" required>
+            <el-radio-group v-model="basicForm.gender" style = "margin-top: 8px">
+                <el-radio label="男"></el-radio>
+                <el-radio label="女"></el-radio>
+            </el-radio-group>
+        </el-form-item>
+
+        <el-form-item >
+            <el-upload
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+        </el-form-item>
+        <p style="margin-left: 790px;margin-top: -10px">生活照</p>
+        <br/>
+        <div id = "underimg">
+        <el-form-item label = "联系电话" prop = "phone" required>
+            <el-input v-model = "basicForm.phone" placeholder = "联系电话"></el-input>
+        </el-form-item>
+        <el-form-item label = "出生日期" prop = "birthday" required>
+            <el-date-picker type="date" placeholder="选择日期" v-model="basicForm.birthday" style="width: 100%;"></el-date-picker>
+        </el-form-item>
+        <br/>
+        <el-form-item label = "身份证号" prop = "idCard" required>
+            <el-input v-model = "basicForm.idCard" placeholder = "身份证号码" style = "width: 530px"></el-input>
+        </el-form-item>
+
+        <br/>
+        <el-form-item label = "登记日期" prop = "addDate" required>
+            <el-date-picker type="date" placeholder="选择日期" v-model="basicForm.addDate" style="width: 100%;"></el-date-picker>
+        </el-form-item>
+        <el-form-item label = "就诊医院" prop = "hospital" required>
+            <el-input v-model = "basicForm.hospital" placeholder = "就诊医院">
+            </el-input>
+        </el-form-item>
+
+        <br/>
+        <el-form-item label = "医师姓名" prop = "doctor" required>
+            <el-input v-model = "basicForm.doctor" placeholder = "医师姓名" style = "width: 235px">
+            </el-input>
+        </el-form-item>
+        <el-form-item label = "医师电话" prop = "doctornum" required>
+            <el-input v-model = "basicForm.doctornum" placeholder = "医师电话">
+            </el-input>
+        </el-form-item>
+        <br/>
+        <el-form-item label = "家庭住址" prop = "home" required>
+            <el-input v-model = "basicForm.home" placeholder = "家庭住址" style = "width: 530px"></el-input>
+        </el-form-item>
+        </div>
+    </el-form>
+    <el-tabs >
+        <el-tab-pane label="护理居住信息">
+            <el-form-item ref = "">
+
+            </el-form-item>
+        </el-tab-pane>
+        <el-tab-pane label = "健康喜好信息">
+            <el-form ref = "healthForm" :model = "healthForm" label-width = "80px" size = "medium">
+                <el-form-item label = "健康状态" prop = "status" required>
+                    <el-input v-model = "healthForm.status" placeholder = "健康状态"  style = "width: 530px"></el-input>
+                </el-form-item>
+                <el-form-item label = "过往病史" prop = "medicalHistory" required>
+                    <el-input v-model = "healthForm.medicalHistory" placeholder = "过往病史" style = "width: 530px"></el-input>
+                </el-form-item>
+                <el-form-item label = "注意事项" prop = "attention" required>
+                    <el-input v-model = "healthForm.attention" placeholder = "注意事项" style = "width: 530px"></el-input>
+                </el-form-item>
+                <el-form-item label = "兴趣爱好" prop = "hobby" required>
+                    <el-input v-model = "healthForm.hobby" placeholder = "兴趣爱好" style = "width: 530px"></el-input>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label = "家庭成员信息">
+            <el-form :inline = "true" ref = "familyForm" :model = "familyForm" label-width = "80px" size = "medium">
+                <el-form-item label = "主联系人" prop = "mainContactName">
+                    <el-input v-model = "familyForm.mainContactName" placeholder = "主联系人"></el-input>
+                </el-form-item>
+                <el-form-item label = "关系" prop = "mainContactRelationship">
+                    <el-input v-model = "familyForm.mainContactRelationship" placeholder = "关系"></el-input>
+                </el-form-item>
+                <br/>
+                <el-form-item label = "联系电话" prop = "mainContactNum">
+                    <el-input v-model = "familyForm.mainContactNum" placeholder = "联系电话"></el-input>
+                </el-form-item>
+                <br/>
+                <el-form-item label = "次联系人" prop = "secondaryContactName">
+                    <el-input v-model = "familyForm.secondaryContactName" placeholder = "次联系人"></el-input>
+                </el-form-item>
+                <el-form-item label = "关系" prop = "secondaryContactRelationship">
+                    <el-input v-model = "familyForm.secondaryContactRelationship" placeholder = "关系"></el-input>
+                </el-form-item>
+                <br/>
+                <el-form-item label = "联系电话" prop = "secondaryContactNum">
+                    <el-input v-model = "familyForm.secondaryContactNum" placeholder = "联系电话"></el-input>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label = "初始费用信息">
+            <el-form ref = "costForm" :model = "costForm" label-width = "80px" size = "medium">
+                <el-form-item prop = "shouldCost" label = "应付款">
+                    <el-input v-model = "costForm.shouldCost" style = "width: 530px">
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop = "actualCost" label = "实付款">
+                    <el-input v-model = "costForm.actualCost" style = "width: 530px">
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop = "arrears" label = "欠款额">
+                    <el-input v-model = "costForm.arrears" style = "width: 530px" :disabled="true">
+                    </el-input>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+
+    </el-tabs>
+    <el-button id = "loginbutton" size = "medium" type = "success" round @click = "submit">提交</el-button>
+    <el-button id = "rebutton" size = "medium" type = "primary" round @click="resetForm()">重置</el-button>
+</div>

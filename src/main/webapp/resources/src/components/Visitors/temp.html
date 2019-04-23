@@ -1,0 +1,128 @@
+<div class = "visitors">
+    <el-input v-model = "nameSearch" placeholder = "老人名字" style = "width: 130px" size = "small"></el-input>
+    <template>
+        <el-select v-model="adminSearch" clearable placeholder="请选择操作人" size = "small" style = "width: 130px">
+            <el-option
+                    v-for="(creator, index) in adminOptions"
+                    :key="creator"
+                    :label="creator"
+                    :value="creator">
+            </el-option>
+        </el-select>
+    </template>
+    <el-button type = "primary"
+               icon = "el-icon-search"
+               @click = "findVByOlderNameAndOperator"
+               size = "small">
+    </el-button>
+    <el-button type="primary"
+               icon = "el-icon-circle-plus-outline"
+               size = "small"
+               @click = "insert"
+    >添加
+    </el-button>
+    <p></p>
+    <el-dialog title = "访客添加" :visible.sync="dialogFormVisible">
+        <el-form :model = "insertForm" :rules="rules" ref = "insertForm" status-icon inline = "true">
+            <el-form-item label = "访客姓名" prop = "newName" size = "small">
+                <el-input v-model = "insertForm.newName"></el-input>
+            </el-form-item>
+            <el-form-item label = "联系电话" prop = "newPhone" size = "small">
+                <el-input v-model = "insertForm.newPhone"></el-input>
+            </el-form-item>
+            <el-form-item label = "身份证号" prop = "newIdcard" size = "small">
+                <el-input v-model = "insertForm.newIdcard"></el-input>
+            </el-form-item>
+            <el-form-item label = "老人姓名" prop = "newOlderName" size = "small">
+                <el-input v-model = "insertForm.newOlderName"></el-input>
+            </el-form-item>
+            <el-form-item label = "访问关系" prop = "newRelationship" size = "small">
+                <el-input v-model = "insertForm.newRelationship"></el-input>
+            </el-form-item>
+        </el-form>
+        <el-autocomplete
+                v-model="olderName"
+                :fetch-suggestions="querySearchAsync"
+                placeholder="请输入内容"
+                @select="handleSelect"
+        ></el-autocomplete>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close('form')">取 消</el-button>
+            <el-button type="primary" @click="">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-table
+            :header-cell-style="{background:'rgba(7,105,187,0.3)',color:'#030105',fontSize:'15px'}"
+            :row-style="{fontSize:'13px'}"
+            ref = "visitor"
+            :data = "visitor"
+            tooltip-effect="light"
+            stripe
+            style="width: 100%">
+        <el-table-column
+            prop = "name"
+            label = "姓名"
+            width = "120"
+        >
+        </el-table-column>
+        <el-table-column
+            prop = "phone"
+            label = "联系方式"
+            width = "150">
+        </el-table-column>
+        <el-table-column
+                prop = "idcard"
+                label = "身份证"
+                width = "150">
+        </el-table-column>
+        <el-table-column
+                prop = "oldername"
+                label = "老人姓名"
+                width = "120">
+        </el-table-column>
+
+        <el-table-column
+                prop = "relationship"
+                label = "关系"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "vtime"
+                label = "访问时间"
+                width = "180">
+        </el-table-column>
+        <el-table-column
+                prop = "operator"
+                label = "操作人"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                label="操作"
+                width="150">
+            <template slot-scope="scope">
+                <el-button
+                        @click.native.prevent="deleteRow(scope.$index, user)"
+                        type="text"
+                        size="mini"
+                        type="danger"
+                        icon="el-icon-delete">
+                    移除
+                </el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!-- 分页 -->
+    <div class="pagination">
+        <el-pagination
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageConf.pageCode"
+                :page-sizes="pageConf.pageOption"
+                :page-size="pageConf.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="pageConf.totalPage">
+        </el-pagination>
+    </div>
+</div>

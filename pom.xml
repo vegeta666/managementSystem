@@ -23,7 +23,7 @@
         <slf4j.version>1.7.25</slf4j.version>
         <druid.verison>1.1.10</druid.verison>
         <pagehelper.version>5.1.4</pagehelper.version>
-        <jackson.verison>2.9.5</jackson.verison>
+        <jackson.version>2.9.5</jackson.version>
         <lombok.version>1.18.0</lombok.version>
     </properties>
     <!--配置依赖-->
@@ -106,8 +106,18 @@
         <!--jackson-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.verison}</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!--日志-->
@@ -122,6 +132,20 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier><!--如果出现导不了包，加上这句，具体原因参考https://blog.csdn.net/qqqqqq654/article/details/53425775-->
+
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
         </dependency>
     </dependencies>
     <!--配置工具-->

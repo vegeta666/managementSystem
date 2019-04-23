@@ -1,0 +1,75 @@
+<div class="olderList">
+    <el-table
+            :header-cell-style="{background:'rgba(7,105,187,0.3)',color:'#030105',fontSize:'15px'}"
+            :row-style="{fontSize:'13px'}"
+            ref = "older"
+            :data = "older"
+            tooltip-effect="light"
+            stripe
+            style="width: 100%">
+        <el-table-column
+                prop = "name"
+                label = "姓名"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "gender"
+                label = "性别"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "idcard"
+                label = "身份证"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "hospital"
+                label = "就诊医院"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "doctor"
+                label = "医师"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "doctornum"
+                label = "医师电话"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "home"
+                label = "住址"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "adddate"
+                label = "登记时间"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "birthday"
+                label = "生日"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "phone"
+                label = "联系电话"
+                width = "120">
+        </el-table-column>
+
+    </el-table>
+    <!-- 分页 -->
+    <div class="pagination">
+        <el-pagination
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageConf.pageCode"
+                :page-sizes="pageConf.pageOption"
+                :page-size="pageConf.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="pageConf.totalPage">
+        </el-pagination>
+    </div>
+</div>

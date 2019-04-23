@@ -1,0 +1,167 @@
+<div class = "volunteer">
+    <el-input v-model = "nameSearch" placeholder = "名称" style = "width: 130px" size = "small"></el-input>
+    <template>
+        <el-select v-model="teamSearch" clearable placeholder="请选择类型" size = "small" style = "width: 130px">
+            <el-option
+                    v-for="item in teamOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
+    </template>
+    <el-button type = "primary"
+               icon = "el-icon-search"
+               @click = "findVTByNameAndTeam"
+               size = "small">
+    </el-button>
+    <el-button type="primary"
+               icon = "el-icon-circle-plus-outline"
+               size = "small"
+               @click = "insert"
+    >添加
+    </el-button>
+    <p></p>
+    <el-dialog title = "志愿者添加" :visible.sync="dialogFormVisible">
+        <el-form :model = "insertForm" :rules="rules" ref = "insertForm" status-icon inline = "true">
+            <el-form-item label = "名称" prop = "newName" size = "small">
+                <el-input v-model = "insertForm.newName"></el-input>
+            </el-form-item>
+            <el-form-item label = "类型" prop = "newTeam">
+                <template>
+                    <el-select v-model="insertForm.newTeam" clearable placeholder="请选择类型" size = "small" style = "width: 130px">
+                        <el-option
+                                v-for="item in teamOptions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </template>
+            </el-form-item>
+            <el-form-item label = "人数" prop = "newCount" size = "small">
+                <el-input v-model = "insertForm.newCount"></el-input>
+            </el-form-item>
+            <el-form-item label = "目标" prop = "newTarget" size = "small">
+                <el-input v-model = "insertForm.newTarget"></el-input>
+            </el-form-item>
+            <el-form-item label = "任务" prop = "newTask" size = "small">
+                <el-input v-model = "insertForm.newTask" style = "width: 455px"></el-input>
+            </el-form-item>
+            <el-form-item label = "时间" prop = "newTime" size = "small">
+                <el-date-picker
+                        v-model="insertForm.newTime"
+                        type="datetimerange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        style = "width: 455px">
+                </el-date-picker>
+            </el-form-item>
+            <p></p>
+            <el-form-item label = "负责人" prop = "newHead" size = "small">
+                <el-input v-model = "insertForm.newHead"></el-input>
+            </el-form-item>
+            <el-form-item label = "联系电话" prop = "newPhone" size = "small">
+                <el-input v-model = "insertForm.newPhone"></el-input>
+            </el-form-item>
+
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close('form')">取 消</el-button>
+            <el-button type="primary" @click="submit('insertForm')">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-table
+            :header-cell-style="{background:'rgba(7,105,187,0.3)',color:'#030105',fontSize:'15px'}"
+            :row-style="{fontSize:'13px'}"
+            ref = "volunteer"
+            :data = "volunteer"
+            tooltip-effect="light"
+
+            stripe
+            style="width: 100%">
+        <el-table-column type = "expand">
+            <template slot-scope="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form-item label="负责人">
+                        <span>{{ props.row.head }}</span>
+                    </el-form-item>
+                    <el-form-item label="联系电话">
+                        <span>{{ props.row.phone }}</span>
+                    </el-form-item>
+                    <br/>
+                    <el-form-item label="开始时间">
+                        <span>{{ props.row.starttime }}</span>
+                    </el-form-item>
+
+                    <el-form-item label="结束时间">
+                        <span>{{ props.row.endtime }}</span>
+                    </el-form-item>
+                </el-form>
+            </template>
+        </el-table-column>
+        <el-table-column
+                prop = "name"
+                label = "名称"
+                width = "150"
+        >
+        </el-table-column>
+        <el-table-column
+                prop = "team"
+                label = "类型"
+                width = "90">
+        </el-table-column>
+        <el-table-column
+                prop = "count"
+                label = "总人数"
+                width = "90">
+        </el-table-column>
+        <el-table-column
+                prop = "target"
+                label = "目标"
+                width = "150">
+        </el-table-column>
+        <el-table-column
+                prop = "task"
+                label = "任务"
+                width = "180">
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                label="操作"
+                width="200">
+            <template slot-scope="scope">
+                <el-button type="primary"
+                           icon="el-icon-edit"
+                           size = "mini"
+                           @click.native.prevent="editRow(scope.row)">
+                    编辑
+                </el-button>
+                <el-button
+                        @click.native.prevent=""
+                        type="text"
+                        size="mini"
+                        type="danger"
+                        icon="el-icon-delete">
+                    移除
+                </el-button>
+            </template>
+        </el-table-column>
+
+    </el-table>
+    <!-- 分页 -->
+    <div class="pagination">
+        <el-pagination
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageConf.pageCode"
+                :page-sizes="pageConf.pageOption"
+                :page-size="pageConf.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="pageConf.totalPage">
+        </el-pagination>
+    </div>
+</div>

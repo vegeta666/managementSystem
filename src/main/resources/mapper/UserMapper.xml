@@ -12,6 +12,14 @@
 
 
     </resultMap>
+    <insert id="insert" parameterType="user">
+      insert into user(username, displayname, userpassword, createby,
+      createtime) values (#{username},#{displayname},#{userpassword},#{createby},
+      #{createtime})
+    </insert>
+    <delete id="deleteById" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
 
     <select id="selectAll" resultMap="BaseResultMap">
         select * from user
@@ -19,6 +27,31 @@
     <select id="selectByUsername"  parameterType="String" resultMap ="BaseResultMap">
         select * from user where username = #{username}
     </select>
-
+    <select id="selectSuperPwdById" parameterType="int" resultType="string">
+        select userpassword from user where id = #{id}
+    </select>
+    <select id="selectByDisplayName" resultMap="BaseResultMap">
+      select * from user
+      <where>
+          <if test="displayname != null and displayname != ''">
+            displayname like concat('%',#{displayname},'%')
+          </if>
+      </where>
+    </select>
+    <select id="selectUserList" resultType="string">
+        select distinct displayname from user
+    </select>
+    <update id="updateDisplayNameById" parameterType="String">
+      update user
+      <set>
+        <if test="password != null">
+        userpassword = #{password}
+        </if>
+        <if test="displayname != null">
+          displayname = #{displayname}
+        </if>
+      </set>
+        where id = #{id}
+    </update>
 
 </mapper>

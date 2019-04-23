@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.system.dao.VolunteerMapper">
+    <resultMap id="BaseResultMap" type="com.duan.system.pojo.Volunteer">
+        <id column="id" property="id"></id>
+        <result column="phone" property="phone"/>
+        <result column="name" property="name"/>
+        <result column="target" property="target"/>
+        <result column="team" property="team"/>
+        <result column="count" property="count"/>
+        <result column="head" property="head"/>
+        <result column="task" property="task"/>
+        <result column="starttime" property="starttime"/>
+        <result column="endtime" property="endtime"/>
+    </resultMap>
+    <insert id="insert" parameterType="volunteer">
+        insert into volunteer(name,team,phone,count,head,target,starttime,endtime,task)
+        values (#{name},#{team},#{phone},#{count},#{head},#{target},#{starttime},#{endtime},#{task})
+    </insert>
+    <update id="updateById" parameterType="volunteer">
+      update volunteer
+      <set>
+        <if test="name != null ">
+            name = #{name}
+        </if>
+        <if test="team != null">
+            team = #{team}
+        </if>
+        <if test="head != null">
+              head = #{head}
+        </if>
+        <if test="count != null">
+            count = #{count}
+        </if>
+        <if test="phone != null">
+            phone = #{phone}
+        </if>
+        <if test="target != null">
+            target = #{target}
+        </if>
+        <if test="starttime != null">
+            starttime = #{starttime}
+        </if>
+        <if test="endtime != null">
+            endtime = #{endtime}
+        </if>
+        <if test="task != null ">
+            task = #{task}
+        </if>
+      </set>
+      where id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="int">
+        delete from volunteer where id = #{id}
+    </delete>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from volunteer
+    </select>
+    <select id="selectByNameAndTeam" resultType="volunteer">
+        select * from volunteer
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="team != null and team != ''">
+                and  team = #{team}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

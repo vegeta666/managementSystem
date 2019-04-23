@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.system.dao.OlderHealthMapper">
+    <resultMap id="BaseResultMap" type="com.duan.system.pojo.OlderHealth">
+        <id column="id" property="id"/>
+        <result column="olderid" property="id"/>
+        <result column="status" property="status"/>
+        <result column="medhistory" property="medhistory"/>
+        <result column="attention" property="attention"/>
+        <result column="hobby" property="hobby"/>
+    </resultMap>
+    <insert id="insert" parameterType="olderHealth">
+        insert into older_health(olderid, status, medhistory, attention, hobby)
+        values (#{olderid},#{status},#{medhistory},#{attention},#{hobby})
+    </insert>
+</mapper>

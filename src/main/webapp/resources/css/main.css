@@ -1,6 +1,46 @@
-el-aside{
-    color: black;
+.el-header{
+    background: rgba(7,105,187,0.3);
+
+    height: 100px !important;
+    font-size: 10px;
+
+    display: inline;
 }
-el-header{
-    color: red;
+.el-main{
+    background: beige;
+    min-height: 100% !important;
+
 }
+.el-aside{
+    width: 240px !important;
+}
+#headerright{
+    width: 200px;
+    background: beige;
+    margin-left: 1000px;
+    margin-top: -65px;
+    border-radius: 5px;
+    text-align: right;
+}
+#headleft{
+    margin-right: 1100px;
+    height: 80px;
+    display: inline;
+}
+#headleft #flag{
+    height: 99px;
+    width: 99px;
+    border-radius: 50%;
+}
+#headleft label{
+    position: absolute;
+    padding-top: 10px;
+    font-size: 40px;
+    color: beige;
+    font-family:"STXingkai",Arial,Serif;
+}
+.el-dropdown{
+    margin-top: -25px;
+    margin-left: 1210px !important;
+}
+

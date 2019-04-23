@@ -1,0 +1,73 @@
+<div class="main">
+<!--    <div class="app-header">
+        <div class="title">后台管理系统16464</div>
+    </div>-->
+
+    <el-header>
+        <div id = "headleft">
+
+            <img id = "flag" src="../../resources/css/images/flag.png">&nbsp&nbsp&nbsp&nbsp
+            <label>儒雅随和</label>
+            <label style="font-size: 20px;position: absolute;padding-top: 66px">Elegant and easy-going</label>
+
+        </div>
+
+        <div id = "headerright">
+
+            <label>欢迎您，管理员  :  {{displayName}}</label>&nbsp&nbsp
+            <el-button icon = "el-icon-back" size = "small" circle @click = "logout()"></el-button>
+
+        </div>
+        <el-dropdown trigger="click">
+                        <span class="el-dropdown-link">
+                            个人信息<i class="el-icon-caret-bottom el-icon--right"></i>
+                        </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item class="clearfix" @click.native = "modifynick()">
+                    修改昵称
+                </el-dropdown-item>
+                <el-dropdown-item class="clearfix"  @click.native = "dialogFormVisible = true">
+                    修改密码
+                </el-dropdown-item>
+            </el-dropdown-menu>
+            <el-dialog title="修改密码" :visible.sync="dialogFormVisible">
+                <el-form :model = "form" status-icon :rules="rules" ref="form">
+                    <el-form-item label="初始密码" :label-width="formLabelWidth" prop = "init">
+                        <el-input type = "password" v-model = "form.init" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="新密码" :label-width="formLabelWidth" prop = "new">
+                        <el-input type = "password" v-model = "form.new" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码" :label-width="formLabelWidth" prop = "check">
+                        <el-input type = "password" v-model = "form.check" autocomplete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="close('form')">取 消</el-button>
+                    <el-button type="primary" @click="submit('form')">确 定</el-button>
+                </div>
+            </el-dialog>
+        </el-dropdown>
+
+    </el-header>
+
+    <div class="app-content">
+        <div class="app-nav">
+            <app-nav></app-nav>
+        </div>
+        <div class="app-wrap">
+            <!-- 此处放置el-tabs代码 -->
+            <div class="template-tabs">
+                <el-tabs v-model="activeIndex" type="border-card" closable @tab-click="tabClick" v-if="options.length" @tab-remove="tabRemove">
+                    <el-tab-pane :key="item.name" v-for="(item, index) in options" :label="item.name" :name="item.route">
+                    </el-tab-pane>
+                </el-tabs>
+            </div>
+            <div class="content-wrap">
+                <keep-alive>
+                    <router-view/>
+                </keep-alive>
+            </div>
+        </div>
+    </div>
+</div>

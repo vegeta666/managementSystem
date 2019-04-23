@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.system.dao.OlderMapper">
+    <resultMap id="BaseResultMap" type="com.duan.system.pojo.Older">
+        <id column="id" property="id" />
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="idcard" property="idcard"/>
+        <result column="hospital" property="hospital"/>
+        <result column="doctor" property="doctor"/>
+        <result column="doctornum" property="doctornum"/>
+        <result column="home" property="home"/>
+        <result column="adddate" property="adddate"/>
+        <result column="birthday" property="birthday"/>
+        <result column="phone" property="phone"/>
+
+
+    </resultMap>
+    <insert id="insert" parameterType="older">
+        insert into older(name,gender,idcard,hospital,doctor,doctornum,home,adddate,birthday,phone)
+        values (#{name},#{gender},#{idcard},#{hospital},#{doctor},#{doctornum},#{home},#{adddate},#{birthday},#{phone})
+    </insert>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from older
+    </select>
+    <select id="findAllName" resultType="string">
+        select distinct name from older
+    </select>
+    <select id="selectIdByCard" resultType="int">
+        select id from older where idcard = #{idcard}
+    </select>
+</mapper>
