@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.system.dao.AttendantMapper">
+    <insert id="insert" parameterType="attendant">
+        insert into attendant (name, birthday, entrytime, salary, grade,status)
+         values (#{name},#{birthday},#{entrytime},#{salary},#{grade},#{status})
+    </insert>
+    <insert id="insertConnect" parameterType="older_Attendant">
+        insert into older_attendant(olderid, attendantid,grade)
+        values (#{olderid},#{attendantid},#{grade})
+    </insert>
+
+    <select id="findAll" resultType="attendant">
+        select * from attendant
+    </select>
+    <select id="findAByGradeAndStatus" resultType="attendant">
+        select * from attendant
+        <where>
+            <if test="grade != null and grade != ''">
+              grade = #{grade}
+            </if>
+            <if test="status != null and status != ''">
+              and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="findNameByGrade" resultType="string">
+        select name from attendant where grade >= #{grade}
+    </select>
+    <select id="findIdByName" resultType="int">
+        select id from attendant where name = #{name}
+    </select>
+</mapper>

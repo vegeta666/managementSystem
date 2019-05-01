@@ -1,0 +1,142 @@
+<div class="attendant">
+    <template>
+        <el-select v-model="gradeSearch" clearable placeholder="请选择级别" size = "small" style = "width: 130px">
+            <el-option
+                    v-for="(grade, index) in gradeOptions"
+
+                    :label="grade.label"
+                    :value="grade.value">
+            </el-option>
+        </el-select>
+    </template>
+    <template>
+        <el-select v-model="statusSearch" clearable placeholder="请选择状态" size = "small" style = "width: 130px">
+            <el-option
+                    v-for="(status, index) in statusOptions"
+
+                    :label="status.label"
+                    :value="status.value">
+            </el-option>
+        </el-select>
+    </template>
+    <el-button type = "primary"
+               icon = "el-icon-search"
+               @click = "findAByGradeAndStatus"
+               size = "small">
+    </el-button>
+    <el-button type="primary"
+               icon = "el-icon-circle-plus-outline"
+               size = "small"
+               @click = "insert"
+    >添加
+    </el-button>
+    <p></p>
+    <el-dialog title = "员工添加" :visible.sync="dialogFormVisible">
+        <el-form :model = "insertForm"  ref = "insertForm" status-icon inline = "true">
+            <el-form-item label = "员工姓名" prop = "newName" size = "small" required>
+                <el-input v-model = "insertForm.newName"></el-input>
+            </el-form-item>
+            <el-form-item label = "员工级别" prop = "newGrade" size = "small" required>
+                <el-select v-model="insertForm.newGrade" clearable placeholder="请选择级别" size = "small" style = "width: 130px">
+                    <el-option
+                            v-for="(grade, index) in gradeOptions"
+
+                            :label="grade.label"
+                            :value="grade.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label = "出生日期" prop = "newBirthday" size = "small" required>
+                <el-date-picker type="date" placeholder="选择日期" v-model="insertForm.newBirthday" style="width: 100%;"></el-date-picker>
+            </el-form-item>
+            <el-form-item label = "入职日期" prop = "newEntryTime" size = "small" required>
+                <el-date-picker type="date" placeholder="选择日期" v-model="insertForm.newEntryTime" style="width: 100%;"></el-date-picker>
+            </el-form-item>
+            <el-form-item label = "薪资 / 月" prop = "newSalary" size = "small" required>
+                <el-input v-model = "insertForm.newSalary"></el-input>
+            </el-form-item>
+            <el-form-item label = "员工状态" prop = "newStatus" size = "small" required>
+                <el-select v-model="insertForm.newStatus" clearable placeholder="请选择级别" size = "small" style = "width: 130px">
+                    <el-option
+                            v-for="(status, index) in statusOptions"
+
+                            :label="status.label"
+                            :value="status.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close('form')">取 消</el-button>
+            <el-button type="primary" @click="submit('insertForm')">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-table
+            :header-cell-style="{background:'rgba(7,105,187,0.3)',color:'#030105',fontSize:'15px'}"
+            :row-style="{fontSize:'13px'}"
+            ref = "attendant"
+            :data = "attendant"
+            tooltip-effect="light"
+            stripe
+            style="width: 100%">
+        <el-table-column
+                prop = "name"
+                label = "姓名"
+                width = "120"
+        >
+        </el-table-column>
+        <el-table-column
+                prop = "grade"
+                label = "级别"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "salary"
+                label = "薪资"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "status"
+                label = "劳动状态"
+                width = "120">
+        </el-table-column>
+        <el-table-column
+                prop = "entrytime"
+                label = "入职日期"
+                width = "150">
+        </el-table-column>
+        <el-table-column
+                prop = "birthday"
+                label = "生日"
+                width = "150">
+        </el-table-column>
+        <el-table-column
+                fixed="right"
+                label="操作"
+                width="150">
+            <template slot-scope="scope">
+                <el-button
+                        @click.native.prevent=""
+                        type="text"
+                        size="mini"
+                        type="danger"
+                        icon="el-icon-delete">
+                    移除
+                </el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!-- 分页 -->
+    <div class="pagination">
+        <el-pagination
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="pageConf.pageCode"
+                :page-sizes="pageConf.pageOption"
+                :page-size="pageConf.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="pageConf.totalPage">
+        </el-pagination>
+    </div>
+</div>

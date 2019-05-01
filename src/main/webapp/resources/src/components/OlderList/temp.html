@@ -1,4 +1,11 @@
 <div class="olderList">
+    <el-input v-model = "nameSearch" placeholder = "名称" style = "width: 130px" size = "small"></el-input>
+    <el-button type = "primary"
+               icon = "el-icon-search"
+               @click = "findOByName"
+               size = "small">
+    </el-button>
+    <p></p>
     <el-table
             :header-cell-style="{background:'rgba(7,105,187,0.3)',color:'#030105',fontSize:'15px'}"
             :row-style="{fontSize:'13px'}"

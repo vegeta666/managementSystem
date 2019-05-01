@@ -1,5 +1,6 @@
 package com.duan.system.controller;
 
+import com.duan.system.pojo.User;
 import com.duan.system.pojo.Visitor;
 import com.duan.system.service.VisitorService;
 import com.duan.system.utils.JsonUtils;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 public class VisitorController {
@@ -31,9 +35,12 @@ public class VisitorController {
     }
     @PostMapping(value = "/addVisitor",produces = "application/json; charset = utf-8")
     @ResponseBody
-    public int addVisitor(@RequestBody String visitor){
+    public int addVisitor(@RequestBody String visitor, HttpSession session){
         Gson g = new Gson();
         Visitor newVisitor = g.fromJson(visitor,Visitor.class);
+        newVisitor.setVtime(new Date());
+        User u = (User) session.getAttribute("user");
+        newVisitor.setOperator(u.getDisplayname());
         return visitorService.insert(newVisitor);
     }
 }

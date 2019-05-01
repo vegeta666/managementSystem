@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duan.system.dao.DormitoryMapper">
+
+    <insert id="insert" parameterType="dormitory">
+        insert into dormitory(adress, room, bed)
+        values (#{adress},#{room},#{bed})
+    </insert>
+    <update id="updateStatus">
+        update dormitory set status = 1,olderid = #{olderid} where
+        adress = #{adress} and room = #{room} and bed = #{bed}
+    </update>
+    <select id="findBedCount" resultType="int">
+        select count(*) from dormitory where adress = #{adress} and room = #{room}
+    </select>
+    <select id="findAdress" resultType="string">
+        select distinct adress from dormitory
+    </select>
+    <select id="findRoomByAdress" resultType="string">
+        select distinct room from dormitory where adress = #{adress}
+    </select>
+    <select id="findEmptyBedByAdressAndRoom" resultType="string">
+        select bed from dormitory where adress = #{adress} and room = #{room}
+        and status != 1
+    </select>
+</mapper>

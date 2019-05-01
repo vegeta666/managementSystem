@@ -8,6 +8,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VolunteerServiceImpl implements VolunteerService {
@@ -22,6 +25,7 @@ public class VolunteerServiceImpl implements VolunteerService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public int insert(Volunteer volunteer) {
         return volunteerMapper.insert(volunteer);
     }
@@ -35,11 +39,13 @@ public class VolunteerServiceImpl implements VolunteerService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public int updateById(Volunteer volunteer) {
         return volunteerMapper.updateById(volunteer);
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public int deleteById(int id) {
         return volunteerMapper.deleteById(id);
     }

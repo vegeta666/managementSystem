@@ -29,4 +29,7 @@
     <select id="selectIdByCard" resultType="int">
         select id from older where idcard = #{idcard}
     </select>
+    <select id="findOByName" resultType="older">
+        select * from older where name like concat('%',#{name},'%')
+    </select>
 </mapper>

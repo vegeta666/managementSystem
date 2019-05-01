@@ -10,4 +10,5 @@ public interface OlderService {
     List<String> findAllName();
     int findIdByCard(String idcard);
     int insert(Older older);
+    PageBean findOByName(int pageCode,int pageSize,String name);
 }

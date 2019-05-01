@@ -9,6 +9,8 @@ define(function (require, exports, module) {
     var OlderForm = require("@/OlderForm/index")
     var OlderList = require("@/OlderList/index")
     var Volunteers = require("@/Volunteers/index")
+    var Attendants = require("@/Attendants/index")
+    var Dormitory = require("@/Dormitory/index")
     const router = new VueRouter({
         routes: [
             {
@@ -29,7 +31,7 @@ define(function (require, exports, module) {
                     {
                         path:'/dormitory',
                         name:'宿舍管理',
-                        component: Template
+                        component: Dormitory
                     },
                     {
                         path:'/older',
@@ -62,7 +64,7 @@ define(function (require, exports, module) {
                             {
                                 path:'/attentdant',
                                 name:'职员管理',
-                                component:Template
+                                component:Attendants
                             }
                         ]
                     },

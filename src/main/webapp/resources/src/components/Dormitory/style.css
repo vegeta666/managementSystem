@@ -1,0 +1,14 @@
+.dormitory{
+    text-align: center;
+}
+#dorButton .el-button{
+    margin-top: 5%;
+    width: 150px;
+
+}
+#dorButton{
+    border: 1px solid #cee3e9;
+    background:#f1f7f9;
+    height: 60%;
+    width: 100%;
+}

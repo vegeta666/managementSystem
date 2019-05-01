@@ -5,4 +5,14 @@
         insert into older_position(adress, room, bed, status, olderid)
         values (#{address},#{room},#{bed},#{status},#{olderid})
     </insert>
+    <select id="findAdress" resultType="string">
+        select distinct adress from older_position
+    </select>
+    <select id="findRoomByAdress" resultType="string">
+        select distinct room from older_position where adress = #{adress}
+    </select>
+    <select id="findEmptyBedByAdressAndRoom" resultType="string">
+        select bed from older_position where adress = #{adress} and room = #{room}
+        and status != 1
+    </select>
 </mapper>

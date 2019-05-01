@@ -27,7 +27,8 @@ define(function (require, exports, module) {
                    handleCurrentChange: function () {
                        console.log("页码改变了");
                    }
-               }
+               },
+               nameSearch:''
            }
        },
        methods:{
@@ -58,15 +59,45 @@ define(function (require, exports, module) {
                    console.error(err);
                });
            },
+           findOByName(){
+               var self = this;
+               var param = new URLSearchParams();
+               param.append('pageCode', self.pageConf.pageCode);
+               param.append('pageSize', self.pageConf.pageSize);
+               param.append('name',self.nameSearch);
+               axios.post('/findOByName', param
+               ).then(function (result) {
+
+                   self.pageConf.totalPage = result.data.total;
+                   self.older = result.data.rows;
+                   //date数据数字转标准时间
+                   for(var i = 0;i < result.data.total;i ++){
+                       if(self.older[i].gender === 1){
+                           self.older[i].gender = '男'
+                       }else{
+                           self.older[i].gender = '女'
+                       }
+                       self.older[i].birthday = self.transferTime(self.older[i].birthday);
+                       self.older[i].adddate = self.transferTime(self.older[i].adddate);
+                   }
+
+               }).catch(function (err) {
+                   console.error(err);
+               });
+           },
            //pageSize改变时触发的函数
            handleSizeChange(val) {
                var self = this;
-               this.findOByPage(this.pageConf.pageCode, val);
+               //this.findOByPage(this.pageConf.pageCode, val);
                self.pageConf.pageSize = val;
+               this.findOByName();
            },
            //当前页改变时触发的函数
            handleCurrentChange(val) {
-               this.findOByPage(val, this.pageConf.pageSize);
+               //this.findOByPage(val, this.pageConf.pageSize);
+               var self = this;
+               self.pageConf.pageCode = val;
+               this.findOByName();
            },
            transferTime(cTime) {
 

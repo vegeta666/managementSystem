@@ -10,4 +10,5 @@ public interface OlderMapper {
     List<String> findAllName();
     int insert(Older older);
     int selectIdByCard(String idcard);
+    Page<Older> findOByName(String name);
 }

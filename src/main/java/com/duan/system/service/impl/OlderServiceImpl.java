@@ -8,6 +8,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,7 +38,17 @@ public class OlderServiceImpl implements OlderService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public int insert(Older older) {
         return olderMapper.insert(older);
+    }
+
+    @Override
+    public PageBean findOByName(int pageCode, int pageSize, String name) {
+        PageHelper.startPage(pageCode,pageSize);
+
+        Page<Older> page = olderMapper.findOByName(name);
+
+        return new PageBean(page.getTotal(),page.getResult());
     }
 }

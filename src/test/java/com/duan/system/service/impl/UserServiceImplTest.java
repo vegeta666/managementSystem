@@ -15,6 +15,10 @@ public class UserServiceImplTest {
     @Autowired
    private  UserService userService;
     @Test
+    public void testLog(){
+
+    }
+    @Test
     public void upate() {
         //userService.modifyinformation("password","dddss","1001");
     }

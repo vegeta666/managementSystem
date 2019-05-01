@@ -1,0 +1,40 @@
+<div class="dormitory">
+    <h1>宿舍管理</h1>
+    </br>
+    <div id = "dorButton">
+        <el-button type="primary" @click = "addDormitory">新增宿舍</el-button></br></br></br>
+        <el-button type="success" @click = "searchDormitory">宿舍查询</el-button></br></br></br>
+        <el-button type="warning" @click = "updateDormitory">宿舍变更</el-button>
+    </div>
+    <el-dialog title = "新增宿舍" :visible.sync="addFormVisible">
+        <el-form :model = "addForm"  ref = "addForm" status-icon>
+            <el-form-item label = "公寓" prop = "addAdress" size = "small"  required>
+                <el-input v-model = "addForm.addAdress"></el-input>
+            </el-form-item>
+            <el-form-item label = "房间" prop = "addRoom" size = "small" required>
+                <el-input v-model = "addForm.addRoom"></el-input>
+            </el-form-item>
+            <el-form-item label = "床位个数" prop = "addBed" size = "small" required>
+                <el-input v-model = "addForm.addBed"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close('form')">取 消</el-button>
+            <el-button type="primary" @click="submitAdd">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title = "宿舍查询" :visible.sync="searchFormVisible">
+
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close('form')">取 消</el-button>
+            <el-button type="primary" @click="">确 定</el-button>
+        </div>
+    </el-dialog>
+    <el-dialog title = "宿舍变更" :visible.sync="updateFormVisible">
+
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close('form')">取 消</el-button>
+            <el-button type="primary" @click="">确 定</el-button>
+        </div>
+    </el-dialog>
+</div>

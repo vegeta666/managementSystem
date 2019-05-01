@@ -6,6 +6,7 @@ define(function (require, exports, module) {
         template: temp,
         data(){
             var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+            this.getOlderNameList();
             var validateName = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请输入名字'));
@@ -21,10 +22,23 @@ define(function (require, exports, module) {
                 }
             };
             var validateOlderName = (rule, value, callback) => {
+                var self = this;
+                //alert(self.olderNameListLen);
                 if (value === '') {
                     callback(new Error('请输入老人名字'));
                 } else {
-                    callback();
+                    var olderFlag = false;
+                    for(var i = 0;i < self.olderNameListLen;i ++){
+                        if(self.olderNameList[i] === value){
+                            olderFlag = true;
+                        }
+                    }
+                    if(olderFlag === false){
+                        callback(new Error('老人不存在'));
+                    }else{
+                        callback();
+                    }
+
                 }
             };
             var validateIdcard = (rule, value, callback) => {
@@ -98,34 +112,45 @@ define(function (require, exports, module) {
 
                 },
                 olderNameList:[],
-                olderName:'',
-                timeout:  null,
-                t:''
+                olderNameListLen:''
 
             }
         },
         methods:{
-            async querySearchAsync(queryString, cb) {
+            submit(formName){
                 var self = this;
+                this.$refs[formName].validate((valid) => {
+                    if(valid){
+                        var tempVisitor = JSON.stringify({
+                            name:self.insertForm.newName,
+                            phone:self.insertForm.newPhone,
+                            idcard:self.insertForm.newIdcard,
+                            oldername:self.insertForm.newOlderName,
+                            relationship:self.insertForm.newRelationship
+                        });
+                        let newVisitor = JSON.parse(tempVisitor);
+                        axios.post('/addVisitor',newVisitor,{
+                            headers: {
+                                "Content-Type": "application/json;charset=utf-8"  //头部信息
+                            }
+                        }).then(function (res) {
 
-                var olderNameList = self.olderNameList;
-                this.getOlderNameList();
-                var results = queryString ? olderNameList.filter(this.createStateFilter(queryString)) : olderNameList;
-
-                clearTimeout(this.timeout);
-                this.timeout = setTimeout(() => {
-                    cb(results);
-                }, 1500 * Math.random());
+                        }).catch(function (err) {
+                            console.error(err);
+                        });
+                        self.dialogFormVisible = false;
+                        this.$refs[formName].resetFields();
+                        this.$message({
+                            showClose: true,
+                            message: '恭喜你，添加成功',
+                            type: 'success'
+                        });
+                    }else{
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
-            createStateFilter(queryString) {
-                return (olderName) => {
-                    return (olderName.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-                };
-            },
-            handleSelect(item) {
-                console.log(item);
-            },
-
             //获取数据
             findVByPage(pageCode,pageSize){
                 var self = this;
@@ -183,12 +208,16 @@ define(function (require, exports, module) {
             //pageSize改变时触发的函数
             handleSizeChange(val) {
                 var self = this;
-                this.findVByPage(this.pageConf.pageCode, val);
+                //this.findVByPage(this.pageConf.pageCode, val);
                 self.pageConf.pageSize = val;
+                this.findVByOlderNameAndOperator();
             },
             //当前页改变时触发的函数
             handleCurrentChange(val) {
-                this.findVByPage(val, this.pageConf.pageSize);
+                //this.findVByPage(val, this.pageConf.pageSize);
+                var self = this;
+                self.pageConf.pageCode = val;
+                this.findVByOlderNameAndOperator();
             },
             getOperator(){
                 var self = this;
@@ -201,11 +230,12 @@ define(function (require, exports, module) {
             },
             getOlderNameList(){
                 var self = this;
-               self.t = axios.post('/findAllOlderName').then(result => {
-                   return Promise.resolve({...result.data});
+                axios.post('/findAllOlderName').then(function (res) {
+                    self.olderNameList = res.data;
+                    self.olderNameListLen = res.data.length;
+                }).then(function (err) {
+                    console.error(err);
                 });
-                /*         return '1';*/
-                //return axios.post('/findAllOlderName');
             },
             transferTime(cTime) {
 
@@ -244,17 +274,11 @@ define(function (require, exports, module) {
                 return newDate;
             }
         },
-        mounted(){
-            this.getOlderNameList();
-        },
         created(){
-            var self = this;
-
-
             this.getOlderNameList();
             this.getOperator();
             this.findVByPage(this.pageConf.pageCode, this.pageConf.pageSize);
-            alert(self.t);
+
         }
     }
 });

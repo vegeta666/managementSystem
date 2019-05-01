@@ -62,9 +62,54 @@
     </el-form>
     <el-tabs >
         <el-tab-pane label="护理居住信息">
-            <el-form-item ref = "">
-
-            </el-form-item>
+            <el-form :inline = "true" ref = "positionForm" :model = "positionForm" label-width = "80px" size = "medium">
+                <el-form-item label = "居住公寓" prop = "adressSearch" required>
+                    <el-select v-model="positionForm.adressSearch" clearable placeholder="请选择公寓" size = "small" style = "width: 130px">
+                        <el-option
+                                v-for="(adress, index) in adressList"
+                                :label="adress"
+                                :value="adress">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label = "房间" prop = "roomSearch" required>
+                    <el-select :disabled="roomDisable==='true'?false:true" v-model="positionForm.roomSearch" clearable placeholder="请选择房间" size = "small" style = "width: 130px">
+                        <el-option
+                                v-for="(room, index) in roomList"
+                                :label="room"
+                                :value="room">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label = "床位" prop = "bedSearch" required>
+                    <el-select  :disabled="bedDisable==='true'?false:true" v-model="positionForm.bedSearch" clearable placeholder="请选择空余床位" size = "small" style = "width: 130px">
+                        <el-option
+                                v-for="(bed, index) in bedList"
+                                :label="bed"
+                                :value="bed">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                </br>
+                <el-form-item label = "护理级别" prop = "rankSearch" required>
+                    <el-select   v-model="positionForm.rankSearch" clearable placeholder="请选择护理级别" size = "small" style = "width: 130px">
+                        <el-option
+                                v-for="(rank, index) in rankList"
+                                :label="rank.label"
+                                :value="rank.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label = "护理人员" prop = "attendantSearch" required>
+                    <el-select  :disabled="attendantDisable==='true'?false:true"  v-model="positionForm.attendantSearch" clearable placeholder="请选择护理人员" size = "small" style = "width: 130px">
+                        <el-option
+                                v-for="(attendant, index) in attendantList"
+                                :label="attendant"
+                                :value="attendant">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
         </el-tab-pane>
         <el-tab-pane label = "健康喜好信息">
             <el-form ref = "healthForm" :model = "healthForm" label-width = "80px" size = "medium">
@@ -83,37 +128,37 @@
             </el-form>
         </el-tab-pane>
         <el-tab-pane label = "家庭成员信息">
-            <el-form :inline = "true" ref = "familyForm" :model = "familyForm" label-width = "80px" size = "medium">
-                <el-form-item label = "主联系人" prop = "mainContactName">
-                    <el-input v-model = "familyForm.mainContactName" placeholder = "主联系人"></el-input>
+            <el-form :inline = "true" ref = "familyForm" :model = "familyForm" label-width = "80px" size = "medium" >
+                <el-form-item label = "主联系人" prop = "mainContactName" required>
+                    <el-input v-model = "familyForm.mainContactName" placeholder = "主联系人" ></el-input>
                 </el-form-item>
-                <el-form-item label = "关系" prop = "mainContactRelationship">
-                    <el-input v-model = "familyForm.mainContactRelationship" placeholder = "关系"></el-input>
+                <el-form-item label = "关系" prop = "mainRelationship" required>
+                    <el-input v-model = "familyForm.mainRelationship" placeholder = "关系"></el-input>
                 </el-form-item>
                 <br/>
-                <el-form-item label = "联系电话" prop = "mainContactNum">
+                <el-form-item label = "联系电话" prop = "mainContactNum" required>
                     <el-input v-model = "familyForm.mainContactNum" placeholder = "联系电话"></el-input>
                 </el-form-item>
                 <br/>
-                <el-form-item label = "次联系人" prop = "secondaryContactName">
+                <el-form-item label = "次联系人" prop = "secondaryContactName" required>
                     <el-input v-model = "familyForm.secondaryContactName" placeholder = "次联系人"></el-input>
                 </el-form-item>
-                <el-form-item label = "关系" prop = "secondaryContactRelationship">
-                    <el-input v-model = "familyForm.secondaryContactRelationship" placeholder = "关系"></el-input>
+                <el-form-item label = "关系" prop = "secondaryRelationship" required>
+                    <el-input v-model = "familyForm.secondaryRelationship" placeholder = "关系"></el-input>
                 </el-form-item>
                 <br/>
-                <el-form-item label = "联系电话" prop = "secondaryContactNum">
+                <el-form-item label = "联系电话" prop = "secondaryContactNum" required>
                     <el-input v-model = "familyForm.secondaryContactNum" placeholder = "联系电话"></el-input>
                 </el-form-item>
             </el-form>
         </el-tab-pane>
         <el-tab-pane label = "初始费用信息">
-            <el-form ref = "costForm" :model = "costForm" label-width = "80px" size = "medium">
-                <el-form-item prop = "shouldCost" label = "应付款">
+            <el-form ref = "costForm" :model = "costForm" label-width = "80px" size = "medium" >
+                <el-form-item prop = "shouldCost" label = "应付款" required>
                     <el-input v-model = "costForm.shouldCost" style = "width: 530px">
                     </el-input>
                 </el-form-item>
-                <el-form-item prop = "actualCost" label = "实付款">
+                <el-form-item prop = "actualCost" label = "实付款" required>
                     <el-input v-model = "costForm.actualCost" style = "width: 530px">
                     </el-input>
                 </el-form-item>

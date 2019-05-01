@@ -203,13 +203,16 @@ define(function (require, exports, module) {
             //pageSize改变时触发的函数
             handleSizeChange(val) {
                 var self = this;
-                this.findByPage(this.pageConf.pageCode, val);
+                //this.findByPage(this.pageConf.pageCode, val);
                 self.pageConf.pageSize = val;
-
+                this.findByDisplayName();
             },
             //当前页改变时触发的函数
             handleCurrentChange(val) {
-                this.findByPage(val, this.pageConf.pageSize);
+                //this.findByPage(val, this.pageConf.pageSize);
+                var self = this;
+                self.pageConf.pageCode = val;
+                this.findByDisplayName();
             },
             transferTime(cTime) {
 

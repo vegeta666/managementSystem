@@ -243,12 +243,16 @@ define(function (require, exports, module) {
             //pageSize改变时触发的函数
             handleSizeChange(val) {
                 var self = this;
-                this.findVTByPage(this.pageConf.pageCode, val);
+                //this.findVTByPage(this.pageConf.pageCode, val);
                 self.pageConf.pageSize = val;
+                this.findVTByNameAndTeam();
             },
             //当前页改变时触发的函数
             handleCurrentChange(val) {
-                this.findVTByPage(val, this.pageConf.pageSize);
+                //this.findVTByPage(val, this.pageConf.pageSize);
+                var self = this;
+                self.pageConf.pageCode = val;
+                this.findVTByNameAndTeam();
             },
             transferTime(cTime) {
 
